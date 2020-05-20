@@ -3,18 +3,18 @@ kind: ReplicaSet
 metadata:
  name: adhocrschinmay4
  labels:
-  adhoc: chinmayq4
+  adhoc: chinmayrs
 
 spec:
  selector:
   matchLabels:
-   x: adhocrs
+   adhoc: chinmayq4
  replicas: 2
  template:
   metadata:
    name: mypodrs
    labels:
-    x: adhocrs
+    adhoc: chinmayq4
   spec:
    containers:
     - name: adhocrschinmay
@@ -39,7 +39,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    x: adhocrs
+    adhoc: chinmayq4
   type: LoadBalancer
 status:
   loadBalancer: {}
