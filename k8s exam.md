@@ -27,3 +27,14 @@ kubectl create -f q2.yaml
 ```
 Screenshot:
 ![q2](https://raw.githubusercontent.com/CRJain/k8slove2020/master/Q2.png)
+## q4
+1. Create q4.yaml.
+2. Append service to q4.yaml by running:
+```
+kubectl create service loadbalancer q4svcchinmay --tcp 80 --dry-run=client -o yaml >> q4.yaml
+```
+3. Run:
+```
+kubectl create -f q4.yaml
+```
+![Q4](https://raw.githubusercontent.com/CRJain/k8slove2020/master/Q4.png)
