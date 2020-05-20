@@ -38,3 +38,17 @@ kubectl create service loadbalancer q4svcchinmay --tcp 80 --dry-run=client -o ya
 kubectl create -f q4.yaml
 ```
 ![Q4](https://raw.githubusercontent.com/CRJain/k8slove2020/master/Q4.png)
+## q8
+1. Create podexam.yml and append service file to it. Make edits in service like change selector with label of pod.
+2. Create pod and service by running:
+```
+kubectl create -f podexam.yml
+```
+3. This will show an error in status of pod "ImagePullBackOff".
+4. Edit podexam.yml to correct the spelling of image to "nginx".
+5. Then run command:
+```
+kubectl apply -f podexam.yml
+```
+6. Now the pod will come in running state.
+![Q8](https://raw.githubusercontent.com/CRJain/k8slove2020/master/Q8.png)
