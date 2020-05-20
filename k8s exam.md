@@ -10,4 +10,4 @@ kubectl create service nodeport q2svcchinmay --tcp 80 --dry-run=client -o yaml >
 kubectl create -f q2.yaml
 ```
 Screenshot:
-!(https://raw.githubusercontent.com/CRJain/k8slove2020/master/Q2.png)
+![q2](https://raw.githubusercontent.com/CRJain/k8slove2020/master/Q2.png)
