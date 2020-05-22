@@ -84,3 +84,75 @@ python3 get-pods.py > /usr/share/nginx/html/index.html
 ```
 #### Screenshot 2
 ![List of Running Pods](https://raw.githubusercontent.com/CRJain/k8slove2020/master/Screenshot_2.png)
+## Email Pod:
+### Everything same as above pod, then:
+1. Create a new email account.
+2. Allow access to less secure apps by going to https://www.google.com/settings/security/lesssecureapps.
+### Creating python script to send mail:
+```
+nano send_email.py
+```
+#### send_email.py
+```
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+from kubernetes import client, config
+import os
+
+from secrets import PASSWORD
+
+config.load_incluster_config()
+v1 = client.CoreV1Api()
+
+pods = v1.list_namespaced_pod(namespace='default')
+
+html =  '''
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+        </style>
+        <body>
+                <h2>LIST OF RUNNING PODS :- </h2>
+                <table style="width:30%">
+                <tr>
+                        <th style="text-align:left">NAME</th>
+                        <th style="text-align:left">STATUS</th> 
+                </tr>
+        '''
+for pod in pods.items:
+    html += ''' <tr><td>%s</td><td>%s</td></tr>'''\
+           %(pod.spec.containers[0].name, pod.status.phase)
+html += '</table></body></html>'
+
+me = "chinmayrjain99@gmail.com"
+you = "learntechbyme@gmail.com"
+
+msg = MIMEMultipart('alternative')
+msg['Subject'] = "chinmayk8slove2020"
+msg['From'] = me
+msg['To'] = you
+
+text = "Hi!\nHere is the list of Pods you wanted:"
+
+part1 = MIMEText(text, 'plain')
+part2 = MIMEText(html, 'html')
+msg.attach(part1)
+msg.attach(part2)
+
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.ehlo()
+server.starttls()
+server.login('chinmayrjain99@gmail.com', PASSWORD)
+server.sendmail(me, you, msg.as_string())
+server.quit()
+```
+### Run:
+```
+python3 send_email.py
+```
