@@ -78,7 +78,7 @@ for pod in pods.items:
 html += '</table></body></html>'
 print(html)
 ```
-### Coping output of get-pods.py to index.html -
+### Copying output of get-pods.py to index.html -
 ```
 python3 get-pods.py > /usr/share/nginx/html/index.html
 ```
